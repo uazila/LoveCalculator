@@ -29,14 +29,11 @@ class TestFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bundle = Bundle()
         with(binding) {
             okBtn.setOnClickListener {
                 val firstName = binding.firstName.text.toString()
                 val secondName = binding.secondName.text.toString()
                 doRequest(firstName, secondName)
-                bundle.putSerializable(KEY_RESPONSE, data)
-                findNavController().navigate(R.id.testFragment2, bundle)
             }
         }
     }
@@ -45,7 +42,10 @@ class TestFragment : Fragment() {
         App.api.calculate(firstName, secondName).enqueue(object : Callback<LoveModel> {
             override fun onResponse(call: Call<LoveModel>, response: Response<LoveModel>) {
                 Log.e("ololo", "onResponce: ${response.body()}")
+                val bundle = Bundle()
                 data = response.body()
+                bundle.putSerializable(KEY_RESPONSE, data)
+                findNavController().navigate(R.id.testFragment2, bundle)
             }
 
             override fun onFailure(call: Call<LoveModel>, t: Throwable) {
