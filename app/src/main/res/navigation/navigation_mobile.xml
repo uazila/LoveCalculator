@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_test" />
     <fragment
         android:id="@+id/testFragment2"
-        android:name="kg.example.lovecalculator.fragments.TestFragment2"
+        android:name="kg.example.lovecalculator.fragments.ResutFragment"
         android:label="TestFragment2"
         tools:layout="@layout/fragment_test2" />
 </navigation>

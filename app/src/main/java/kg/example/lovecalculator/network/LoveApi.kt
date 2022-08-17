@@ -1,6 +1,6 @@
 package kg.example.lovecalculator.network
 
-import kg.example.lovecalculator.LoveModel
+import kg.example.lovecalculator.model.LoveModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

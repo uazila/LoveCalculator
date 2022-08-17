@@ -1,24 +1,26 @@
 package kg.example.lovecalculator.fragments
 
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import kg.example.lovecalculator.App
-import kg.example.lovecalculator.LoveModel
 import kg.example.lovecalculator.R
 import kg.example.lovecalculator.databinding.FragmentTestBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kg.example.lovecalculator.model.LoveModel
 
 
 class TestFragment : Fragment() {
+
     private lateinit var binding: FragmentTestBinding
     var data: LoveModel? = null
+
+    private val viewModel: TestViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,26 +35,17 @@ class TestFragment : Fragment() {
             okBtn.setOnClickListener {
                 val firstName = binding.firstName.text.toString()
                 val secondName = binding.secondName.text.toString()
-                doRequest(firstName, secondName)
+                viewModel.getLoveModel(firstName, secondName).observe(viewLifecycleOwner) {
+                    data = it
+                    val bundle = Bundle()
+                    bundle.putSerializable(KEY_RESPONSE, data)
+                    Handler(Looper.myLooper()!!).postDelayed({
+                        findNavController().navigate(R.id.testFragment2, bundle)
+                    }, 2500)
+
+                }
             }
         }
-    }
-
-    private fun doRequest(firstName: String, secondName: String) : LoveModel?{
-        App.api.calculate(firstName, secondName).enqueue(object : Callback<LoveModel> {
-            override fun onResponse(call: Call<LoveModel>, response: Response<LoveModel>) {
-                Log.e("ololo", "onResponce: ${response.body()}")
-                val bundle = Bundle()
-                data = response.body()
-                bundle.putSerializable(KEY_RESPONSE, data)
-                findNavController().navigate(R.id.testFragment2, bundle)
-            }
-
-            override fun onFailure(call: Call<LoveModel>, t: Throwable) {
-                Log.e("ololo", "onFailure: ${t.message}")
-            }
-        })
-        return data
     }
 
     companion object {

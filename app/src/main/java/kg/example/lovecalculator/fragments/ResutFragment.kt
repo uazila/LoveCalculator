@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kg.example.lovecalculator.LoveModel
 import kg.example.lovecalculator.databinding.FragmentTest2Binding
 import kg.example.lovecalculator.fragments.TestFragment.Companion.KEY_RESPONSE
-import java.lang.Thread.sleep
-import kotlin.time.Duration
+import kg.example.lovecalculator.model.LoveModel
 
-class TestFragment2 : Fragment() {
+class ResutFragment : Fragment() {
     private lateinit var binding: FragmentTest2Binding
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -21,16 +21,17 @@ class TestFragment2 : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
         initGetData()
     }
 
     private fun initGetData() {
+
         val getData = requireArguments().getSerializable(KEY_RESPONSE) as LoveModel?
         if (getData != null) {
-            binding.tvName1.text = getData.firstName
-            binding.tvName2.text = getData.secondName
+            binding.tvName2.text = getData.firstName
+            binding.tvName1.text = getData.secondName
             binding.tvPercent.text = getData.percentage + " процентов совместимости"
             binding.tvLike.text = getData.result
         }

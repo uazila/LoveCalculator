@@ -1,9 +1,10 @@
-package kg.example.lovecalculator
+package kg.example.lovecalculator.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import kg.example.lovecalculator.R
 import kg.example.lovecalculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
