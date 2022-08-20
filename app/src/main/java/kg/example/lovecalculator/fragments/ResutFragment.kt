@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import kg.example.lovecalculator.databinding.FragmentTest2Binding
 import kg.example.lovecalculator.fragments.TestFragment.Companion.KEY_RESPONSE
 import kg.example.lovecalculator.model.LoveModel
-
+@AndroidEntryPoint
 class ResutFragment : Fragment() {
+
     private lateinit var binding: FragmentTest2Binding
 
 
